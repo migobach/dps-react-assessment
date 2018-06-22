@@ -19,7 +19,7 @@ class Beers extends Component {
   render() {
     return (
       <Segment>
-          <Header as='h1' textAlign='center'>Beers</Header>
+          <Header as='h1' textAlign='center'>Top 50 Beers</Header>
 
         <Card.Group>
             { this.state.beers.map( beer =>
