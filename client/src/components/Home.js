@@ -8,16 +8,13 @@ class Home extends Component {
   state = { beers: [] };
 
   componentDidMount() {
-    debugger
     axios.get('http://localhost:5100/api/all_beers')
       .then(res => {
-        debugger
         this.setState({ beers: res.data.entries })
       })
       .catch( error => {
         console.log(error.response);
     });
-    debugger
   }
 
 
@@ -50,7 +47,7 @@ class Home extends Component {
               </List.Content>
             </List.Item>
           )
-          }
+        }
           </List>
         </Segment>
       </Grid.Column >
