@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
     # Assignment Details Markdown
     get 'assignment_details', to: 'assignment_details#show'
+
   end
 
   #Do not place any routes below this one
