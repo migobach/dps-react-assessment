@@ -1,26 +1,25 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Header, Card, Segment, Icon } from 'semantic-ui-react';
+import { Header, Card, Segment, Image } from 'semantic-ui-react';
 
-class Beers extends Component {
+class Breweries extends Component {
   state = { breweries: [] }
 
   componentDidMount() {
-    debugger
+    
     axios.get('http://localhost:5100/api/all_breweries')
       .then(res => {
-        debugger
+        // debugger
         this.setState({ breweries: res.data.entries })
       })
       .catch( error => {
         debugger
         console.log(error.response);
     });
-    debugger
   }
 
   // res.data.entries[1].images.icon
-  
+
   // "id": "Klgom2",
   //           "name": "'t Hofbrouwerijke",
   //           "name_short_display": "'t Hofbrouwerijke",
@@ -40,9 +39,10 @@ class Beers extends Component {
         <Card.Group>
             { this.state.breweries.map( brewery =>
               <Card 
-                key={brewery.id}
+              key={brewery.id}
               >
-                {/* <Image src=`` */}
+                {/* <Image src={`${brewery.images.medium}`} />\ */}
+              
                 <Card.Content>{brewery.name_short_display}</Card.Content>
                 <Card.Content extra>
                 <Card.Meta>Type of brewery: {brewery.brand_classification}</Card.Meta>
@@ -56,7 +56,7 @@ class Beers extends Component {
   }
 }
 
-export default Beers
+export default Breweries
 
 
 // TODO - make each card a link using the Semantic UI docs and have them link to a view page with a conditionally rendered description (some don't seem to have descriptions), along with all the metadata.
