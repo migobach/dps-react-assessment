@@ -5,29 +5,37 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 
 class Beers extends Component {
-  state = { beers: [], hasMore: true }
+  state = { beers: [], hasMore: true, nextHref: null }
+
+  LoadMore = (page) => { 
+    const self = this;
+    let url = axios.baseUrl + '/beers';
+      if(this.state.nextHref) 
+        url = this.state.nextHref;
+   }
 
   componentDidMount() {
-    axios.get('http://localhost:5100/api/all_beers?page=1&per_page=10')
+    axios.get('http://localhost:5100/api/all_beers?page=1&per_page=6', { cache: true }) 
       .then(res => {
         this.setState({ beers: res.data.entries })
-      })
+      }) 
       .catch( error => {
         debugger
         console.log(error.response);
     });
   }
 
+
   render() {
     return (
       
       <Segment>
-      {/* <InfiniteScroll
+      <InfiniteScroll
            pageStart={0}
-           loadMore={loadFunc}
+           loadMore={this.loadMore} 
            hasMore={true || false}
            loader={<div className="loader" key={0}>Loading ...</div>}
-       > */}
+       >
           <Header as='h1' textAlign='center'>Top 50 Beers</Header>
 
         <Card.Group>
@@ -44,15 +52,15 @@ class Beers extends Component {
               )
             }
         </Card.Group>
-            {/* </InfiniteScroll> */}
-            <Pagination
+            </InfiniteScroll>
+            {/* <Pagination
               defaultActivePage={1}
               firstItem={null}
               lastItem={null}
               pointing
               secondary
               totalPages={5}
-            />
+            /> */}
       </Segment>
     )
   }
