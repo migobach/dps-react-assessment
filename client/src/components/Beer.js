@@ -11,47 +11,45 @@ import axios from 'axios'
 
 
 class Beer extends React.Component {
-  state = { beerId: ''}
 
-	// componentDidMount() {
-  //   const id = this.props.match.params.id
-  //   this.setState({ beerId: id })
-  //     axios.get(`/api/beer/${id}`)
-  //       .then( res => {
-  //         this.setState({ posts: res.data })
-  //       })
-  //       .catch( err => {
-  //         console.log(err) 
-  //       })
-  // }
+  state = { beerId: '', beerInfo: [], current: [] }
 
-  // beerInfo = () => {
-  //   // return this.state.posts.map( post => 
-  //   return this.state.posts.filter(p => p.user_id == this.state.friend).map( post => 
-  //     <Card key={post.id}>
-  //       <Card.Content>
-  //         <Card.Description>
-  //           {post.title}
-  //         </Card.Description>
-  //         <Card.Meta>
-  //           {post.body}
-  //         </Card.Meta>
-  //       </Card.Content>
-  //       <Card.Content extra>
-  //         <Button onClick={() => this.props.dispatch(deletePost(post.id))}>
-  //           Delete
-  //         </Button>
-  //       </Card.Content>
-  //     </Card>
-  //   )
-  // }
+	componentDidMount() {
+    debugger
+    const id = this.props.match.params.id
+    this.setState({ beerId: id })
+      axios.get('http://localhost:5100/api/all_beers')
+        .then( res => {
+          this.setState({ beerInfo: res.data })
+        })
+        .catch( err => {
+          debugger
+          console.log(err) 
+        })
+        debugger
+  }
+
+  beerInfo = () => {
+   
+    return this.state.beerInfo.filter(p => p.id == this.state.beerId).map( beer => 
+      <Card key={beer.id}>
+        <Card.Content>
+          <Card.Description>
+            {beer.name}
+          </Card.Description>
+          <Card.Meta>
+            {beer.description}
+          </Card.Meta>
+          </Card.Content>
+      </Card>
+    )
+  }
 
   render() {
-    // const { toggleForm } = this.state
     return (
       <Container>
         <Header>Name of beer</Header>
-        
+          {this.beerInfo}
       </Container>
     )
   }
