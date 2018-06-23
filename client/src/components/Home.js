@@ -6,7 +6,7 @@ import beerLogo from '../images/beer.png';
 
 class Home extends Component {
   state = { beers: [] };
-
+  
   componentDidMount() {
     axios.get('http://localhost:5100/api/all_beers')
       .then(res => {

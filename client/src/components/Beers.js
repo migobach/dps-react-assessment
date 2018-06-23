@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Header, Card, Segment, Icon } from 'semantic-ui-react';
+import { Header, Card, Segment, Icon, Pagination } from 'semantic-ui-react';
+import InfiniteScroll from 'react-infinite-scroller';
+
 
 class Beers extends Component {
-  state = { beers: [] }
+  state = { beers: [], hasMore: true }
 
   componentDidMount() {
-    axios.get('http://localhost:5100/api/all_beers')
+    axios.get('http://localhost:5100/api/all_beers?page=1&per_page=10')
       .then(res => {
         this.setState({ beers: res.data.entries })
       })
@@ -18,13 +20,20 @@ class Beers extends Component {
 
   render() {
     return (
+      
       <Segment>
+      {/* <InfiniteScroll
+           pageStart={0}
+           loadMore={loadFunc}
+           hasMore={true || false}
+           loader={<div className="loader" key={0}>Loading ...</div>}
+       > */}
           <Header as='h1' textAlign='center'>Top 50 Beers</Header>
 
         <Card.Group>
             { this.state.beers.map( beer =>
               <Card 
-                key={beer.id}
+              key={beer.id}
               >
                 <Card.Content>{beer.name_display}</Card.Content>
                 <Card.Meta>{beer.description}</Card.Meta>
@@ -35,6 +44,15 @@ class Beers extends Component {
               )
             }
         </Card.Group>
+            {/* </InfiniteScroll> */}
+            <Pagination
+              defaultActivePage={1}
+              firstItem={null}
+              lastItem={null}
+              pointing
+              secondary
+              totalPages={5}
+            />
       </Segment>
     )
   }
