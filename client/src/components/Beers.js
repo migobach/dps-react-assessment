@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Header, Card, Segment, Icon } from 'semantic-ui-react';
+import { oneBeer } from '../reducers/beer'
 import InfiniteScroll from 'react-infinite-scroller';
+import { connect } from 'react-redux'
 
 
 class Beers extends Component {
@@ -18,6 +20,10 @@ class Beers extends Component {
     });
   }
 
+  singleBeer = (id) => {
+    this.props.dispatch(oneBeer(id))
+  }
+
   render() {
     return (
       <Segment>
@@ -27,7 +33,7 @@ class Beers extends Component {
             { this.state.beers.map( beer =>
               <Card 
                 key={beer.id}
-                href={"beers/" + beer.id}
+                href={this.singleBeer(beer.id)}
               >
 
                 <Card.Content>{beer.name_display}</Card.Content>
@@ -43,7 +49,7 @@ class Beers extends Component {
   }
 }
 
-export default Beers
+export default connect()(Beers)
 
 // const CardExampleLinkCard = () => (
 //   <Card

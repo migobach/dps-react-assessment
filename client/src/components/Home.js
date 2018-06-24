@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Header, Segment, Divider, Grid, Image, List } from 'semantic-ui-react';
+import { Header, Segment, Divider, Grid, Image, Card } from 'semantic-ui-react';
 import ReactMarkDown from 'react-markdown';
 import axios from 'axios';
 import beerLogo from '../images/beer.png';
+
 
 class Home extends Component {
   state = { beers: [] };
@@ -34,21 +35,25 @@ class Home extends Component {
 {/* Section to the left */}
 
       <Grid.Column computer={8} tablet={8} mobile={16}>
-        <Segment>     
-
-          <List>
-          { this.state.beers.map( beer =>
-            <List.Item>
-              <List.Content>
-                <List.Header as='a'>{beer.name_display}</List.Header>
-                <List.Description>
-                  {beer.description}
-                </List.Description>
-              </List.Content>
-            </List.Item>
-          )
-        }
-          </List>
+        <Segment>   
+        <Card
+          href={'/beers'}
+          header='Beers'
+          meta='Click here to see a beer list'
+          description={[
+            'Even if you are a reckless, nihilistic alcholic ',
+            'click here to learn about more beers that you could be drinking now.',
+          ].join('')}
+        />
+        <Card
+          href={'/breweries'}
+          header='Breweries'
+          meta='Click here to see breweries'
+          description={[
+            'Regardless of responsibilities at home or work, there are so many great breweries to visit!',
+            'click here to learn about places that you could be drinking now.',
+          ].join('')}
+        />
         </Segment>
       </Grid.Column >
 
